@@ -1,0 +1,51 @@
+version: "2"
+services:
+  test_local:
+    build: .
+    depends_on:
+      - hub
+      - chromeNode
+      - firefoxNode
+    environment:
+      BROWSER: chrome
+      HUB_HOST: hub
+      PLATFORM: en
+      HOST: dawanda.com
+      PORT: 4444
+      PROFILE: desktopsmoketest
+      TIMEOUT: 10
+    volumes:
+     - ./desktop:/app
+
+  hub:
+    image: selenium/hub:3.6.0-copper
+    ports:
+      - "4444"
+
+  chromeNode:
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      DBUS_SESSION_BUS_ADDRESS: /dev/null
+    ports:
+    - 5900
+    image: selenium/node-chrome-debug:3.6.0-copper
+    command: bash -c "rm /tmp/.X99-lock || export no_proxy=*.local && /opt/bin/entry_point.sh"
+    restart: always
+    shm_size: 2g
+    volumes:
+      - /dev/shm:/dev/shm
+
+  firefoxNode:
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      DBUS_SESSION_BUS_ADDRESS: /dev/null
+    ports:
+    - 5900
+    image: selenium/node-firefox-debug:3.5.3-boron
+    command: bash -c "rm /tmp/.X99-lock || export no_proxy=*.local && /opt/bin/entry_point.sh"
+    restart: always
+    shm_size: 2g
+    volumes:
+      - /dev/shm:/dev/shm

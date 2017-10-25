@@ -1,0 +1,12 @@
+FROM openjdk:8u141-jdk
+MAINTAINER qa@dawandamail.com
+
+WORKDIR /app
+ENV ROOT="/app"
+
+COPY desktop/build.gradle desktop/gradlew /app/
+COPY desktop/gradle/ /app/gradle/
+COPY /desktop/ $ROOT/
+
+RUN ./gradlew compileTestJava clean \
+    && rm -rf  src/

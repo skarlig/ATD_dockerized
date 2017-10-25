@@ -1,0 +1,29 @@
+group 'agileTestingDays'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.2.1' //we want gradle 4.2.1 to run this project
+}
+
+dependencies {
+    compile 'commons-io:commons-io:2.5'
+    compile 'org.apache.commons:commons-lang3:3.6'
+    compile 'org.testng:testng:6.11'
+    compile 'org.seleniumhq.selenium:selenium-java:3.6.0'
+    compile 'org.slf4j:slf4j-simple:1.7.25'
+    compile 'com.google.guava:guava:23.0'
+}
+
+test {
+    useTestNG() {
+        systemProperties System.getProperties()
+        environment 'BROWSER', 'chrome'
+        suites 'src/test/resources/exampletest.xml'
+    }
+}
