@@ -12,10 +12,9 @@ services:
       PLATFORM: en
       HOST: dawanda.com
       PORT: 4444
-      PROFILE: desktopsmoketest
-      TIMEOUT: 10
+      TIMEOUT: 5
     volumes:
-     - ./desktop:/app
+     - ./atd_example:/app
 
   hub:
     image: selenium/hub:3.6.0-copper
