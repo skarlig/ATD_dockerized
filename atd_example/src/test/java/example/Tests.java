@@ -3,6 +3,8 @@ package example;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -50,12 +52,7 @@ public class Tests {
 
     private void waitUntilOverlayDisappears(String selector) throws Exception {
         RemoteWebDriver driver = DriverFactory.getInstance().getDriver();
-        for (int i = 1; i <= 3; i++) {
-            if (driver.findElements(By.cssSelector(selector)).size() != 0) {
-                Thread.sleep(5000);
-            } else {
-                break;
-            }
-        }
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(selector)));
     }
 }
