@@ -1,4 +1,4 @@
-FROM docker-registry.dawanda.in/qa-test-base:latest
+FROM qa-test-base:latest
 MAINTAINER chris.stefani@outlook.com
 
 COPY /atd_example/ $ROOT/
