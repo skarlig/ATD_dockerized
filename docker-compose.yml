@@ -12,12 +12,11 @@ services:
       PLATFORM: en
       HOST: dawanda.com
       PORT: 4444
-      TIMEOUT: 5
     volumes:
      - ./atd_example:/app
 
   hub:
-    image: selenium/hub:3.6.0-copper
+    image: selenium/hub:3.7.1-argon
     ports:
       - "4444"
 
@@ -28,12 +27,7 @@ services:
       DBUS_SESSION_BUS_ADDRESS: /dev/null
     ports:
     - 5900
-    image: selenium/node-chrome-debug:3.6.0-copper
-    command: bash -c "rm /tmp/.X99-lock || export no_proxy=*.local && /opt/bin/entry_point.sh"
-    restart: always
-    shm_size: 2g
-    volumes:
-      - /dev/shm:/dev/shm
+    image: selenium/node-chrome:3.7.1-argon
 
   firefoxNode:
     environment:
@@ -42,9 +36,4 @@ services:
       DBUS_SESSION_BUS_ADDRESS: /dev/null
     ports:
     - 5900
-    image: selenium/node-firefox-debug:3.5.3-boron
-    command: bash -c "rm /tmp/.X99-lock || export no_proxy=*.local && /opt/bin/entry_point.sh"
-    restart: always
-    shm_size: 2g
-    volumes:
-      - /dev/shm:/dev/shm
+    image: selenium/node-firefox:3.7.1-argon

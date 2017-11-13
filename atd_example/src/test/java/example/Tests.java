@@ -12,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -53,13 +52,9 @@ public class Tests {
         driver.quit();
     }
 
-    private RemoteWebDriver createBrowserDriver() {
-        try {
-            String hubUrl = String.format("http://%s:%s/wd/hub", System.getenv("HUB_HOST"), System.getenv("PORT"));
-            driver = new RemoteWebDriver(new URL(hubUrl), capability);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+    private RemoteWebDriver createBrowserDriver() throws Exception {
+        String hubUrl = String.format("http://%s:%s/wd/hub", System.getenv("HUB_HOST"), System.getenv("PORT"));
+        driver = new RemoteWebDriver(new URL(hubUrl), capability);
 
         return driver;
     }
