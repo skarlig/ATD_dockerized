@@ -45,6 +45,7 @@ public class Tests {
         driver.findElement(By.id("login_credentials_password")).sendKeys("atd!rocks");
         driver.findElement(By.id("login_submit")).click();
         driver.findElement(By.cssSelector("img[alt^=\"Icon_todo\"]"));
+        System.out.println("Test passed");
     }
 
     @AfterMethod
